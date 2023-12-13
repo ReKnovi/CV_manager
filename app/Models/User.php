@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -48,6 +50,11 @@ class User extends Authenticatable
     {
         // Implement logic to check if the user is an admin
         // For example, check if the user has an 'admin' role
-        return $this->role === 'admin';
+        if (Auth::user()->role == 'admin') {
+            return true;
+        }
+            else{
+            return false;
     }
+} 
 }

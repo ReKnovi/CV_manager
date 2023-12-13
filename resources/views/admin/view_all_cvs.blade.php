@@ -1,27 +1,32 @@
-<div>
-@extends('layouts.app') <!-- You may need to create an admin layout -->
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Admin Dashboard') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <h2>All CVs</h2>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <!-- Add more columns as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($cvs as $cv)
+    <div class="container mx-auto my-8 p-8 bg-white rounded shadow">
+        <h2 class="text-3xl mb-4">All CVs</h2>
+        <table class="min-w-full border border-gray-300">
+            <thead>
                 <tr>
-                    <td>{{ $cv->name }}</td>
-                    <td>{{ $cv->email }}</td>
+                    <th class="py-2 px-4 border-b">Submitted CVS-Name</th>
                     <!-- Add more columns as needed -->
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endsection
-
-</div>
+            </thead>
+            <tbody>
+                @forelse($cvs as $cv)
+                <tr>
+                    <td class="py-2 px-4 border-b">
+                        <a href="{{ route('admin.individual_cv', ['id' => $cv->id]) }}" class="text-blue-500 hover:underline">{{ $cv->name }}</a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="8" class="py-4 px-4 border-b">No CVs found.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</x-app-layout>

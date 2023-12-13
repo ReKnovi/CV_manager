@@ -14,8 +14,8 @@ border-radius: 4px;
 }
 
 .table {
-width: 100%;
-margin-bottom: 20px;
+width: 150%;
+margin-bottom: 30px;
 background-color: transparent;
 border-collapse: collapse;
 border-spacing: 0;
@@ -23,7 +23,8 @@ display: table;
 }
 
 .widget.widget-table .table {
-margin-bottom: 0;
+margin-bottom: 5%;
+margin-right: 0%;
 border: none;
 }
 
@@ -116,7 +117,7 @@ vertical-align: middle;
      
         
             @if ($cv)
-            <div class="span7 container-fluid">   
+            <div class="span8">   
                 <div class="widget stacked widget-table action-table">
                                     
                                 <div class="widget-header">

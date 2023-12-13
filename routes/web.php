@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Cv;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,17 +32,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-
-
     //|CV SECTION |
     Route::get('/add-cv', [CvController::class, 'addCv'])->name('add.cv');
     Route::post('/store', [CvController::class, 'store'])->name('store.cv');
     Route::get('/view-my-cv/{id}', [CvController::class, 'viewMyCv'])->name('view.my.cv');
     Route::post('/search-cvs', [CvController::class, 'search'])->name('search.cvs');
-
-    //admin panel
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/view-all-cvs', [AdminController::class, 'viewAllCvs'])->name('admin.view_all_cvs');
+});
+//admin panel
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/view-all-cvs', [AdminController::class, 'viewAllCvs'])->name('admin.view_all_cvs');
+    Route::get('/individualcv/{id}', [AdminController::class, 'showIndividualCvs'])->name('admin.individual_cv');
+    Route::post('/search-cvs', [AdminController::class, 'searchCvs'])->name('admin.search_cvs');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Auth::routes();
