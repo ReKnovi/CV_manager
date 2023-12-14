@@ -105,6 +105,12 @@ font-size: 16px;
 color: #555;
 vertical-align: middle;
 }
+
+.btn-edit,
+    .btn-delete {
+        padding: 2px 2px; /* Adjust the padding to control the button size */
+        font-size: 9px; /* Adjust the font size as needed */
+    }
         </style>
     </head>
     <x-slot name="header">
@@ -114,56 +120,53 @@ vertical-align: middle;
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-     
-        
-            @if ($cv)
-            <div class="span8">   
+        @if ($cv)
+            <div class="span8">
                 <div class="widget stacked widget-table action-table">
-                                    
-                                <div class="widget-header">
-                                    <i class="icon-th-list"></i>
-                                    <h3>Table</h3>
-                                </div> <!-- /widget-header -->
-                                
-                                <div class="widget-content">
-                                    
-                                    <table class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                                <th>Technology</th>
-                                                <th>Level</th>
-                                                <th>Salary Expectation</th>
-                                                <th>Experience</th>
-                                                <th class="td-actions">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ $cv->name }}</td>
-                                                <td>{{ $cv->email }}</td>
-                                                <td>{{ $cv->phone }}</td>
-                                                <td>{{ $cv->technology }}</td>
-                                                <td>{{ $cv->level }}</td>
-                                                <td>{{ $cv->salary_expectation }}</td>
-                                                <td>{{ $cv->experience }}</td>
-                                                <td class="td-actions">
-                                                    
-                                                    <a href="" class="btn btn-small">
-                                                        <i class="btn-icon-only icon-remove"></i>										
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            
-                                            </tbody>
-                                        </table>
-                                    
-                                </div> <!-- /widget-content -->
-                            
-                            </div> <!-- /widget -->
-                            </div>
+                    <div class="widget-header">
+                        <i class="icon-th-list"></i>
+                        <h3>Table</h3>
+                    </div>
+
+                    <div class="widget-content">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Technology</th>
+                                    <th>Level</th>
+                                    <th>Salary Expectation</th>
+                                    <th>Experience</th>
+                                    <th class="td-actions" colspan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $cv->name }}</td>
+                                    <td>{{ $cv->email }}</td>
+                                    <td>{{ $cv->phone }}</td>
+                                    <td>{{ $cv->technology }}</td>
+                                    <td>{{ $cv->level }}</td>
+                                    <td>{{ $cv->salary_expectation }}</td>
+                                    <td>{{ $cv->experience }}</td>
+                                    <td class="td-actions">
+                                        <a href="{{ route('my_cv.edit') }}" class="btn btn-small btn-edit">
+                                            <i class="btn-icon-only icon-edit"></i> Edit
+                                        </a>
+                                    </td>
+                                    <td class="td-actions">
+                                        <a href="{{ route('my_cv.delete') }}" class="btn btn-small btn-delete">
+                                            <i class="btn-icon-only icon-remove"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         @else
             <p>No CV found for this user.</p>
         @endif

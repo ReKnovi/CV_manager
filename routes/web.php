@@ -31,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //edit-delete-profile cv
+    Route::get('/my-cv/edit', [CvController::class, 'edit'])->name('my_cv.edit');
+    Route::patch('/my-cv/update', [CvController::class, 'update'])->name('my_cv.update');
+    Route::get('/my-cv/delete', [CvController::class, 'destroy'])->name('my_cv.delete');
+
 
     //|CV SECTION |
     Route::get('/add-cv', [CvController::class, 'addCv'])->name('add.cv');
@@ -44,6 +49,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/view-all-cvs', [AdminController::class, 'viewAllCvs'])->name('admin.view_all_cvs');
     Route::get('/individualcv/{id}', [AdminController::class, 'showIndividualCvs'])->name('admin.individual_cv');
     Route::post('/search-cvs', [AdminController::class, 'searchCvs'])->name('admin.search_cvs');
+    Route::put('/update_application_status/{id}', [CvController::class, 'updateApplicationStatus'])->name('update_application_status');
 });
 
 require __DIR__ . '/auth.php';

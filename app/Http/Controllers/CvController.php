@@ -63,4 +63,36 @@ class CvController extends Controller
         // Pass the CV to the view
         return view('viewmycv', compact('cv'));
     }
+
+    //edit-delete cv
+    public function edit()
+    {
+        $cv = auth()->user()->cv; // Assuming you have a relationship set up
+        return view('cv.edit', compact('cv'));
+    }
+
+    public function update(Request $request)
+    {
+        $cv = auth()->user()->cv; // Assuming you have a relationship set up
+        $cv->update($request->all());
+        // Redirect back or to a confirmation page
+    }
+
+    public function destroy()
+    {
+        $cv = auth()->user()->cv; // Assuming you have a relationship set up
+        $cv->delete();
+        // Redirect back or to a confirmation page
+    }
+
+    public function updateApplicationStatus(Request $request, $id)
+    {
+        $cv = Cv::findOrFail($id);
+        // dd(A)
+        // $cv->update(['application_status' => $request->application_status]);
+        $cv->application_status = $request->input('application_status');
+        $cv->save();
+
+        return redirect()->back()->with('success', 'Application status updated successfully.');
+    }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('level', ['Junior', 'Mid', 'Senior']);
             $table->integer('salary_expectation')->unsigned(); // Removed auto_increment
             $table->integer('experience')->nullable();
+            $table->string('application_status')->nullable();
             $table->timestamps();
         });
     }

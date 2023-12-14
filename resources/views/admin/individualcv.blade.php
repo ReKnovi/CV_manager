@@ -78,17 +78,20 @@
                             <td>{{ $cv->salary_expectation }}</td>
                             <td>{{ $cv->experience }}</td>
                             <!-- Add a new table data for the status dropdown -->
-                            <td class="status-dropdown">
-                                <label for="status">Application Status:</label>
-                                <select id="status" name="status">
-                                    <option value="submitted">Submitted</option>
-                                    <option value="shortlisted">Shortlisted</option>
-                                    <option value="1interview">1 Interview Done</option>
-                                    <option value="2interview">2nd Interview Done</option>
-                                    <option value="hired">Hired</option>
-                                    <option value="rejected">Rejected</option>
-                                    <option value="blacklisted">Blacklisted</option>
-                                </select>
+                            <td class="td-actions">
+                                <form action="{{ route('update_application_status', ['id' => $cv->id]) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="application_status" onchange="this.form.submit()">
+                                        <option value="submitted" {{ $cv->application_status === 'submitted' ? 'selected' : '' }}>Submitted</option>
+                                        <option value="shortlisted" {{ $cv->application_status === 'shortlisted' ? 'selected' : '' }}>Shortlisted</option>
+                                        <option value="1interview" {{ $cv->application_status === '1interview' ? 'selected' : '' }}>1 Interview Done</option>
+                                    <option value="2interview" {{ $cv->application_status === '2interview' ? 'selected' : '' }}>2nd Interview Done</option>
+                                    <option value="hired" {{ $cv->application_status === 'hired' ? 'selected' : '' }}>Hired</option>
+                                    <option value="rejected" {{ $cv->application_status === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                    <option value="blacklisted" {{ $cv->application_status === 'blacklisted' ? 'selected' : '' }}>Blacklisted</option>
+                                    </select>
+                                </form>
                             </td>
                         </tr>
                     </tbody>
